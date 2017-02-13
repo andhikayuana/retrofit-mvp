@@ -33,7 +33,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
         mView = null;
 
-        if (mApi.isExecuted())
+        if (mApi != null && mApi.isExecuted())
             mApi.cancel();
     }
 
@@ -44,7 +44,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
             mView.showProgress();
 
-            mApi = RestClient.getApi().postCars(getInput());
+            mApi = RestClient.getApi().postCars(mView.getIinputCar());
 
             mApi.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -96,34 +96,24 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
         boolean valid = true;
 
-        if (TextUtils.isEmpty(getInput().getYear())) {
+        Car car = mView.getIinputCar();
+
+        if (TextUtils.isEmpty(car.getYear())) {
             mView.setYearError();
             valid = false;
         }
 
-        if (TextUtils.isEmpty(getInput().getMake())) {
+        if (TextUtils.isEmpty(car.getMake())) {
             mView.setMakeError();
             valid = false;
         }
 
-        if (TextUtils.isEmpty(getInput().getModel())) {
+        if (TextUtils.isEmpty(car.getModel())) {
             mView.setModelError();
             valid = false;
         }
 
 
         return valid;
-    }
-
-    @Override
-    public Car getInput() {
-
-        Car car = new Car();
-
-        car.setModel(mView.getModel());
-        car.setMake(mView.getMake());
-        car.setYear(mView.getYear());
-
-        return car;
     }
 }

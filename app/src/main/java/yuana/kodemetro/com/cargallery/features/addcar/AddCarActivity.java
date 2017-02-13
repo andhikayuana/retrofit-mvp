@@ -1,9 +1,7 @@
 package yuana.kodemetro.com.cargallery.features.addcar;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import yuana.kodemetro.com.cargallery.R;
+import yuana.kodemetro.com.cargallery.models.Car;
+import yuana.kodemetro.com.cargallery.utils.AlertBuilder;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
@@ -49,18 +49,14 @@ public class AddCarActivity extends AppCompatActivity implements AddCarView {
     }
 
     @Override
-    public String getModel() {
-        return etModel.getText().toString();
-    }
+    public Car getIinputCar() {
+        Car car = new Car();
 
-    @Override
-    public String getMake() {
-        return etMake.getText().toString();
-    }
+        car.setModel(etModel.getText().toString());
+        car.setMake(etMake.getText().toString());
+        car.setYear(etYear.getText().toString());
 
-    @Override
-    public String getYear() {
-        return etYear.getText().toString();
+        return car;
     }
 
     @Override
@@ -102,16 +98,7 @@ public class AddCarActivity extends AppCompatActivity implements AddCarView {
 
     @Override
     public void saveDataSuccess() {
-        new AlertDialog.Builder(this)
-                .setMessage("Data berhasil disimpan")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
-                .create()
-                .show();
+        AlertBuilder.create(this);
     }
 
     private void setError(EditText editText) {

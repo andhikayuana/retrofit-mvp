@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import yuana.kodemetro.com.cargallery.models.Car;
 
 /**
@@ -18,6 +19,9 @@ public interface Endpoints {
 
     @GET("cars")
     Call<ResponseBody> getCars();
+
+    @GET("cars/{id}")
+    Call<ResponseBody> getCars(@Path("id") int id);
 
     @POST("cars")
     Call<ResponseBody> postCars(@Body Car car);

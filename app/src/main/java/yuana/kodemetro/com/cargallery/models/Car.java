@@ -3,12 +3,14 @@ package yuana.kodemetro.com.cargallery.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * @author yuana <andhikayuana@gmail.com>
  * @since 2/9/17
  */
 
-public class Car {
+public class Car implements Serializable {
 
     @SerializedName("id")
     @Expose

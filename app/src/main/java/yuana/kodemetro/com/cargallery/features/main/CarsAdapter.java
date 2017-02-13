@@ -1,6 +1,7 @@
 package yuana.kodemetro.com.cargallery.features.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import yuana.kodemetro.com.cargallery.R;
+import yuana.kodemetro.com.cargallery.features.detailcar.DetailActivity;
 import yuana.kodemetro.com.cargallery.models.Car;
 
 /**
@@ -51,6 +53,10 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "halo " + car.getModel(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra("DATA", car);
+                mContext.startActivity(intent);
             }
         });
     }

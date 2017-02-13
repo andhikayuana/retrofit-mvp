@@ -1,75 +1,50 @@
-package yuana.kodemetro.com.cargallery.features.main;
+package yuana.kodemetro.com.cargallery.features.detailcar;
 
 import android.util.Log;
 
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import yuana.kodemetro.com.cargallery.models.Car;
 import yuana.kodemetro.com.cargallery.networks.RestClient;
 import yuana.kodemetro.com.cargallery.utils.Helper;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
- * @since 2/9/17
+ * @since 2/13/17
  */
 
-public class MainPresenterImpl implements MainPresenter {
+public class DetailPresenter {
 
-    private static final String TAG = MainPresenterImpl.class.getSimpleName();
+    private static final String TAG = DetailPresenter.class.getSimpleName();
 
-    private MainView mView;
+    private DetailView mView;
     private Call<ResponseBody> mApi;
 
-    public MainPresenterImpl(MainView view) {
-        mView = view;
+    public DetailPresenter(DetailView mView) {
+        this.mView = mView;
     }
 
-    @Override
-    public void destroy() {
 
-        mView = null;
-
-        if (mApi.isExecuted())
-            mApi.cancel();
-    }
-
-    @Override
-    public void getCars() {
+    public void getCarDetail(Integer id) {
 
         mView.showProgress();
 
-        mApi = RestClient.getApi().getCars();
+        mApi = RestClient.getApi().getCars(id);
 
         mApi.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                mView.hideProgress();
-
                 try {
+
+                    mView.hideProgress();
 
                     if (response.isSuccessful()) {
 
-                        String res = response.body().string();
-
-                        JsonObject jRes = Helper.getGsonInstance().fromJson(res, JsonObject.class);
-
-                        Type listType = new TypeToken<List<Car>>() {
-                        }.getType();
-                        List<Car> carList = Helper
-                                .getGsonInstance()
-                                .fromJson(jRes.get("data").getAsJsonArray(), listType);
-
-
-                        mView.showData(carList);
+                        mView.displaydata(response.body().string());
 
                     } else {
 
@@ -79,6 +54,7 @@ public class MainPresenterImpl implements MainPresenter {
 
                         mView.showMessage(jRes.get("msg").getAsString());
                     }
+
                 } catch (Exception e) {
 
                     Log.d(TAG, e.getLocalizedMessage());
@@ -87,7 +63,6 @@ public class MainPresenterImpl implements MainPresenter {
 
                     mView.showMessage(e.getLocalizedMessage());
                 }
-
             }
 
             @Override
@@ -96,9 +71,14 @@ public class MainPresenterImpl implements MainPresenter {
                 mView.hideProgress();
 
                 mView.showMessage(t.getLocalizedMessage());
-
-                Log.d(TAG, t.getLocalizedMessage());
             }
         });
+    }
+
+    public void destroy() {
+        mView = null;
+
+        if (mApi != null && mApi.isExecuted())
+            mApi.cancel();
     }
 }
