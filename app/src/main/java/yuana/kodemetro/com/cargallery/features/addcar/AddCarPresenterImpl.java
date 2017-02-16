@@ -1,5 +1,6 @@
 package yuana.kodemetro.com.cargallery.features.addcar;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import yuana.kodemetro.com.cargallery.db.DbHelper;
 import yuana.kodemetro.com.cargallery.models.Car;
 import yuana.kodemetro.com.cargallery.networks.RestClient;
 import yuana.kodemetro.com.cargallery.utils.Helper;
@@ -23,6 +25,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
     private AddCarView mView;
     private Call<ResponseBody> mApi;
+    private DbHelper db;
 
     public AddCarPresenterImpl(AddCarView view) {
         mView = view;
@@ -55,6 +58,8 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     try {
 
                         if (response.isSuccessful()) {
+
+                            db.save(mView.getIinputCar());
 
                             mView.saveDataSuccess();
 
@@ -115,5 +120,10 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
 
         return valid;
+    }
+
+    @Override
+    public void attachDb(Context context) {
+        db = new DbHelper(context);
     }
 }

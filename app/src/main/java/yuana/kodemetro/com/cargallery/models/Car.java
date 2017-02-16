@@ -15,15 +15,25 @@ public class Car implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("year")
-    @Expose
-    private String year;
     @SerializedName("make")
     @Expose
     private String make;
     @SerializedName("model")
     @Expose
     private String model;
+    @SerializedName("year")
+    @Expose
+    private String year;
+
+    public Car() {
+    }
+
+    public Car(Integer id, String make, String model, String year) {
+        this.id = id;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+    }
 
     public Integer getId() {
         return id;

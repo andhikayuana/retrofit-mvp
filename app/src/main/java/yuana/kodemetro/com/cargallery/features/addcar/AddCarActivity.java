@@ -46,6 +46,7 @@ public class AddCarActivity extends AppCompatActivity implements AddCarView {
 
     private void initPresenter() {
         mPresenter = new AddCarPresenterImpl(this);
+        mPresenter.attachDb(this);
     }
 
     @Override
