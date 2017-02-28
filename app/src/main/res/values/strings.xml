@@ -7,4 +7,8 @@
     <string name="year" >Year</string>
     <string name="save">Simpan</string>
     <string name="detail_data">Detail Data</string>
+    <string name="menu_scanner">Scanner</string>
+    <string name="menu_scanner2">Scanner2</string>
+    <string name="turn_on_flashlight">flash hidup</string>
+    <string name="turn_off_flashlight">flash mati</string>
 </resources>

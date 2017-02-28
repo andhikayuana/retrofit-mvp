@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".CarApp"
@@ -30,6 +31,16 @@
             android:name=".features.detailcar.DetailActivity"
             android:label="@string/detail_data"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".features.qrscanner.ScannerActivity" />
+
+        <activity
+            android:name=".features.qrscanner.Scanner2Activity"
+            android:label="@string/menu_scanner2"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
     </application>
 
 </manifest>

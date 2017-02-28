@@ -13,10 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.util.List;
 
 import yuana.kodemetro.com.cargallery.R;
 import yuana.kodemetro.com.cargallery.features.addcar.AddCarActivity;
+import yuana.kodemetro.com.cargallery.features.qrscanner.Scanner2Activity;
+import yuana.kodemetro.com.cargallery.features.qrscanner.ScannerActivity;
 import yuana.kodemetro.com.cargallery.models.Car;
 
 public class MainActivity extends AppCompatActivity implements MainView {
@@ -96,14 +101,26 @@ public class MainActivity extends AppCompatActivity implements MainView {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.menu_scanner) {
+
+            startActivity(new Intent(this, ScannerActivity.class));
+        } else if (id == R.id.menu_scanner2) {
+
+            new IntentIntegrator(this)
+                    .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)
+                    .setOrientationLocked(false)
+                    .setCaptureActivity(Scanner2Activity.class)
+                    .setPrompt("")
+                    .initiateScan();
+
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
@@ -128,5 +145,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         rvCars.setLayoutManager(new LinearLayoutManager(this));
         rvCars.setAdapter(carsAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

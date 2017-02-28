@@ -36,5 +36,7 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.7'
 
+    compile 'me.dm7.barcodescanner:zxing:1.9'
 
+    compile 'com.journeyapps:zxing-android-embedded:3.4.0'
 }
