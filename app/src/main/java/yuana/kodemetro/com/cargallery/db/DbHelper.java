@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import yuana.kodemetro.com.cargallery.models.Car;
 
@@ -53,12 +54,34 @@ public class DbHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean update() {
-        return false;
+    public boolean update(Car car) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = Db.CarTable.toContentValues(car);
+
+        String where = Db.CarTable.FIELD_ID + "='?'";
+        String[] whereArgs = {String.valueOf(car.getId())};
+
+        db.update(Db.CarTable.TABLE_NAME, contentValues, where, whereArgs);
+
+        return true;
     }
 
-    public ArrayList<Car> findAll() {
-        return null;
+    public List<Car> findAll() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sql = "SELECT * FROM " + Db.CarTable.TABLE_NAME;
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        List<Car> cars = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Car car = Db.CarTable.parseCursor(cursor);
+            cars.add(car);
+        }
+
+        cursor.close();
+        return cars;
     }
 
     public Car findById(int id) {
@@ -73,6 +96,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
         Car car = Db.CarTable.parseCursor(cursor);
 
+        cursor.close();
         return car;
+    }
+
+    public void delete(Car car) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String where = Db.CarTable.FIELD_ID + "='?'";
+        String[] whereArgs = {String.valueOf(car.getId())};
+
+        db.delete(Db.CarTable.TABLE_NAME, where, whereArgs);
     }
 }
