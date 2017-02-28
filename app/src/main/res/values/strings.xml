@@ -4,11 +4,13 @@
     <string name="add_data">Tambah Data</string>
     <string name="model">Model</string>
     <string name="make">Make</string>
-    <string name="year" >Year</string>
+    <string name="year">Year</string>
     <string name="save">Simpan</string>
     <string name="detail_data">Detail Data</string>
     <string name="menu_scanner">Scanner</string>
     <string name="menu_scanner2">Scanner2</string>
     <string name="turn_on_flashlight">flash hidup</string>
     <string name="turn_off_flashlight">flash mati</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="menu_maps">Maps</string>
 </resources>

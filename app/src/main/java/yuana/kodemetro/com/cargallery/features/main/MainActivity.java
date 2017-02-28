@@ -20,6 +20,7 @@ import java.util.List;
 
 import yuana.kodemetro.com.cargallery.R;
 import yuana.kodemetro.com.cargallery.features.addcar.AddCarActivity;
+import yuana.kodemetro.com.cargallery.features.maps.MapsActivity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.Scanner2Activity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.ScannerActivity;
 import yuana.kodemetro.com.cargallery.models.Car;
@@ -117,6 +118,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     .setCaptureActivity(Scanner2Activity.class)
                     .setPrompt("")
                     .initiateScan();
+
+        } else if (id == R.id.menu_maps) {
+
+            startActivity(new Intent(MainActivity.this, MapsActivity.class));
 
         }
 
