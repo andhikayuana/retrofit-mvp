@@ -23,6 +23,7 @@ import yuana.kodemetro.com.cargallery.features.addcar.AddCarActivity;
 import yuana.kodemetro.com.cargallery.features.maps.MapsActivity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.Scanner2Activity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.ScannerActivity;
+import yuana.kodemetro.com.cargallery.features.qrscanner.ScannerFragmentActivity;
 import yuana.kodemetro.com.cargallery.models.Car;
 
 public class MainActivity extends AppCompatActivity implements MainView {
@@ -123,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
 
+        } else if (id == R.id.menu_scanner_fragment) {
+
+            startActivity(new Intent(MainActivity.this, ScannerFragmentActivity.class));
         }
 
         return true;
