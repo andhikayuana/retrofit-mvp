@@ -1,0 +1,94 @@
+{
+  "project_info": {
+    "project_number": "878917988516",
+    "firebase_url": "https://latihan-firebase.firebaseio.com",
+    "project_id": "latihan-firebase",
+    "storage_bucket": "latihan-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878917988516:android:82c4c97e79e23423",
+        "android_client_info": {
+          "package_name": "com.kodemetro.yuana.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878917988516-cmsngmijh1d259lpeprpcfdg0t2bd0rg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kodemetro.yuana.firebase",
+            "certificate_hash": "72639a5ea3d3b660e8590ddcf3dacf9357a0ce5c"
+          }
+        },
+        {
+          "client_id": "878917988516-5g6lc7j3qeaust244g1koalg925j4b0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgC-xbdPYAULLvetjl1vSkjlsoo5DD8vI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878917988516:android:501b0bfe502c5b00",
+        "android_client_info": {
+          "package_name": "yuana.kodemetro.com.cargallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878917988516-t91jh40bro4abmioccndd2magukojho5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "yuana.kodemetro.com.cargallery",
+            "certificate_hash": "72639a5ea3d3b660e8590ddcf3dacf9357a0ce5c"
+          }
+        },
+        {
+          "client_id": "878917988516-5g6lc7j3qeaust244g1koalg925j4b0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgC-xbdPYAULLvetjl1vSkjlsoo5DD8vI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878917988516-5g6lc7j3qeaust244g1koalg925j4b0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

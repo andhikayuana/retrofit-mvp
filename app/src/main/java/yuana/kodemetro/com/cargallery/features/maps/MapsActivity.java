@@ -93,8 +93,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         DirectionResults directionResults = response.body();
 
-                        Log.d(TAG, directionResults.getRoutes().get(0).getSummary());
-
                         Log.i(TAG, "inside on success" + directionResults.getRoutes().size());
 
                         ArrayList<LatLng> routelist = new ArrayList<LatLng>();

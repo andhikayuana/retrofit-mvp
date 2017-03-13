@@ -69,7 +69,9 @@
             android:name=".features.maps.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
 
-        <activity android:name=".features.auth.AuthActivity" />
+        <activity
+            android:name=".features.auth.AuthActivity"
+            android:label="@string/menu_auth" />
     </application>
 
 </manifest>
