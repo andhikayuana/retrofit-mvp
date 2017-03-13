@@ -68,6 +68,8 @@
         <activity
             android:name=".features.maps.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+
+        <activity android:name=".features.auth.AuthActivity" />
     </application>
 
 </manifest>

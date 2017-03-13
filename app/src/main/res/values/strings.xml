@@ -14,4 +14,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="menu_maps">Maps</string>
     <string name="menu_scanner_fragment">Scanner Fragment</string>
+    <string name="menu_auth">Firebase Auth</string>
 </resources>

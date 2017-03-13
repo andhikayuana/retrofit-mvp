@@ -25,4 +25,10 @@
         android:orderInCategory="100"
         android:title="@string/menu_maps"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_auth"
+        android:orderInCategory="100"
+        android:title="@string/menu_auth"
+        app:showAsAction="never" />
 </menu>
