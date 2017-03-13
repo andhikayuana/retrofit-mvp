@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import yuana.kodemetro.com.cargallery.utils.Const;
 
 /**
  * @author yuana <andhikayuana@gmail.com>
@@ -15,13 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RestClient {
 
-    private static final String BASE_URL = "http://yuana.dev.php.or.id/slim/public/";
-
-    public static Endpoints getApi() {
+    public static Endpoints getApi(String baseUrl) {
         OkHttpClient client = buildClient();
-        Endpoints mApi = getRetrofit(BASE_URL, client).create(Endpoints.class);
+        Endpoints mApi = getRetrofit(baseUrl, client).create(Endpoints.class);
 
         return mApi;
+    }
+
+    public static Endpoints getApi() {
+        return getApi(Const.BASE_URL);
     }
 
     private static OkHttpClient buildClient() {
@@ -41,9 +44,9 @@ public class RestClient {
                     public Response intercept(Chain chain) throws IOException {
                         return chain.proceed(
                                 chain.request().newBuilder()
-                                .addHeader("Accept", "application/json")
+                                        .addHeader("Accept", "application/json")
 //                                        add another header here
-                                .build()
+                                        .build()
                         );
                     }
                 });

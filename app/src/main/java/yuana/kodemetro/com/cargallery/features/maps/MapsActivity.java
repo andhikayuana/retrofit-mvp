@@ -6,7 +6,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,22 +21,171 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import yuana.kodemetro.com.cargallery.R;
+import yuana.kodemetro.com.cargallery.models.DirectionResults;
+import yuana.kodemetro.com.cargallery.models.Location;
+import yuana.kodemetro.com.cargallery.models.Route;
+import yuana.kodemetro.com.cargallery.models.Step;
+import yuana.kodemetro.com.cargallery.networks.RestClient;
+import yuana.kodemetro.com.cargallery.utils.Const;
+import yuana.kodemetro.com.cargallery.utils.Helper;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Call<DirectionResults> mApi;
+    private String TAG = MapsActivity.class.getSimpleName();
+    private LatLng originLatLng;
+    private LatLng destLatLng;
+    private EditText etOrigin;
+    private EditText etDest;
+    private Button btnFind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_maps);
+
+        initView();
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
+    private void initView() {
+        etOrigin = (EditText) findViewById(R.id.etOrigin);
+        etDest = (EditText) findViewById(R.id.etDest);
+        btnFind = (Button) findViewById(R.id.btnFind);
+        btnFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDirections();
+            }
+        });
+    }
+
+    private void getDirections() {
+
+        mApi = RestClient
+                .getApi(Const.BASE_MAP_API_URL)
+                .getDirections("json", getQueryParams());
+
+        mApi.enqueue(new Callback<DirectionResults>() {
+            @Override
+            public void onResponse(Call<DirectionResults> call, Response<DirectionResults> response) {
+                try {
+
+                    if (response.isSuccessful()) {
+
+                        mMap.clear();
+
+                        DirectionResults directionResults = response.body();
+
+                        Log.d(TAG, directionResults.getRoutes().get(0).getSummary());
+
+                        Log.i(TAG, "inside on success" + directionResults.getRoutes().size());
+
+                        ArrayList<LatLng> routelist = new ArrayList<LatLng>();
+
+                        if (directionResults.getRoutes().size() > 0) {
+                            ArrayList<LatLng> decodelist;
+                            Route routeA = directionResults.getRoutes().get(0);
+
+                            Log.i(TAG, "Legs length : " + routeA.getLegs().size());
+
+                            if (routeA.getLegs().size() > 0) {
+                                List<Step> steps = routeA.getLegs().get(0).getSteps();
+                                Log.i(TAG, "Steps size :" + steps.size());
+                                Step step;
+                                Location location;
+                                String polyline;
+
+                                originLatLng = routeA.getLegs().get(0).getStartLocation().toLatLng();
+                                destLatLng = routeA.getLegs().get(0).getEndLocation().toLatLng();
+
+                                mMap.addMarker(new MarkerOptions().position(originLatLng));
+                                mMap.addMarker(new MarkerOptions().position(destLatLng));
+
+                                for (int i = 0; i < steps.size(); i++) {
+                                    step = steps.get(i);
+                                    location = step.getStartLocation();
+
+                                    routelist.add(location.toLatLng());
+
+                                    Log.i(TAG, "Start Location :" + location.getLat() + ", " + location.getLng());
+
+                                    polyline = step.getPolyline().getPoints();
+                                    decodelist = Helper.decodePoly(polyline);
+                                    routelist.addAll(decodelist);
+                                    location = step.getEndLocation();
+
+                                    routelist.add(location.toLatLng());
+
+                                    Log.i(TAG, "End Location :" + location.getLat() + ", " + location.getLng());
+                                }
+                            }
+
+                        }
+                        Log.i(TAG, "routelist size : " + routelist.size());
+                        if (routelist.size() > 0) {
+                            PolylineOptions rectLine = new PolylineOptions().width(10).color(
+                                    Color.RED);
+
+                            for (int i = 0; i < routelist.size(); i++) {
+                                rectLine.add(routelist.get(i));
+                            }
+                            // Adding route on the map
+                            mMap.addPolyline(rectLine);
+
+                            CameraUpdate center =
+                                    CameraUpdateFactory.newLatLng(originLatLng);
+                            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+
+                            mMap.moveCamera(center);
+                            mMap.animateCamera(zoom);
+                        }
+
+                    } else {
+                        Log.d(TAG, response.errorBody().string());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, e.getLocalizedMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DirectionResults> call, Throwable t) {
+                Log.d(TAG, t.getLocalizedMessage());
+            }
+        });
+    }
+
+    private Map<String, String> getQueryParams() {
+        HashMap<String, String> q = new HashMap<>();
+        q.put("origin", etOrigin.getText().toString());
+        q.put("destination", etDest.getText().toString());
+        return q;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mApi.isExecuted()) mApi.cancel();
+    }
 
     /**
      * Manipulates the map once available.
