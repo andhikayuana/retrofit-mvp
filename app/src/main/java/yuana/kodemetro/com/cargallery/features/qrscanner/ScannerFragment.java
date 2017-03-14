@@ -17,7 +17,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  * @since 3/11/17
  */
 
-public class ScannerFragment extends Fragment implements ZXingScannerView.ResultHandler {
+public class ScannerFragment extends Fragment implements
+        ZXingScannerView.ResultHandler {
 
     private ZXingScannerView zXingScannerView;
 

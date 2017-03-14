@@ -113,8 +113,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 originLatLng = routeA.getLegs().get(0).getStartLocation().toLatLng();
                                 destLatLng = routeA.getLegs().get(0).getEndLocation().toLatLng();
 
-                                mMap.addMarker(new MarkerOptions().position(originLatLng));
-                                mMap.addMarker(new MarkerOptions().position(destLatLng));
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(originLatLng)
+                                        .title(routeA.getLegs().get(0).getStartAddress())
+                                );
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(destLatLng)
+                                        .title(routeA.getLegs().get(0).getEndAddress())
+                                );
 
                                 for (int i = 0; i < steps.size(); i++) {
                                     step = steps.get(i);
@@ -125,7 +131,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     Log.i(TAG, "Start Location :" + location.getLat() + ", " + location.getLng());
 
                                     polyline = step.getPolyline().getPoints();
+
                                     decodelist = Helper.decodePoly(polyline);
+
                                     routelist.addAll(decodelist);
                                     location = step.getEndLocation();
 
