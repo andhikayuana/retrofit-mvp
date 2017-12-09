@@ -64,4 +64,8 @@ public class ScannerFragment extends Fragment implements
         super.onPause();
         zXingScannerView.stopCamera();
     }
+
+    public void clickFromFragment() {
+        Toast.makeText(getActivity(), "Hello from fragment", Toast.LENGTH_SHORT).show();
+    }
 }

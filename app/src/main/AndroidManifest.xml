@@ -72,6 +72,9 @@
         <activity
             android:name=".features.auth.AuthActivity"
             android:label="@string/menu_auth" />
+
+        <activity android:name=".features.testing.TestingActivity" />
+
     </application>
 
 </manifest>

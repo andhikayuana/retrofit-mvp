@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.qiscus.sdk.Qiscus;
+
 /**
  * @author yuana <andhikayuana@gmail.com>
  * @since 2/13/17
@@ -22,6 +24,12 @@ public class CarApp extends Application {
         super.onCreate();
         context = getApplicationContext();
         MultiDex.install(context);
+
+        initQiscusChatSdk();
+    }
+
+    private void initQiscusChatSdk() {
+        Qiscus.init(this, "hello-bot-stag");
     }
 
     // TODO: 2/13/17

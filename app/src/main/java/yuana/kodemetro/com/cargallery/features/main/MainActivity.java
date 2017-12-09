@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +16,19 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.data.model.QiscusAccount;
 
 import java.util.List;
 
 import yuana.kodemetro.com.cargallery.R;
 import yuana.kodemetro.com.cargallery.features.addcar.AddCarActivity;
-import yuana.kodemetro.com.cargallery.features.auth.AuthActivity;
+import yuana.kodemetro.com.cargallery.features.chat.ChatActivity;
 import yuana.kodemetro.com.cargallery.features.maps.MapsActivity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.Scanner2Activity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.ScannerActivity;
 import yuana.kodemetro.com.cargallery.features.qrscanner.ScannerFragmentActivity;
+import yuana.kodemetro.com.cargallery.features.testing.TestingActivity;
 import yuana.kodemetro.com.cargallery.models.Car;
 
 public class MainActivity extends AppCompatActivity implements MainView {
@@ -131,10 +135,36 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         } else if (id == R.id.menu_auth) {
 
-            startActivity(new Intent(MainActivity.this, AuthActivity.class));
+//            startActivity(new Intent(MainActivity.this, AuthActivity.class));
+
+        } else if (id == R.id.menu_testing) {
+
+            startActivity(new Intent(MainActivity.this, TestingActivity.class));
+
+        } else if (id == R.id.menu_qiscus) {
+
+            openChat();
         }
 
         return true;
+    }
+
+    private void openChat() {
+        Qiscus
+                .setUser("mail@mail.com", "password")
+                .withUsername("Ismail bin Mail")
+                .withAvatarUrl("https://1.bp.blogspot.com/-xsGHTVZTIl8/V_pBYBcrO5I/AAAAAAAAABk/nc_lsivXgZs4H9Z2sxr03OfQk2Fm6_-AgCLcB/s1600/mail%2B2.jpg")
+                .save(new Qiscus.SetUserListener() {
+                    @Override
+                    public void onSuccess(QiscusAccount qiscusAccount) {
+                        startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        Log.d("QISCUS-CHAT", throwable.getMessage());
+                    }
+                });
     }
 
     @Override

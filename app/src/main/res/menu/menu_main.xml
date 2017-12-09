@@ -31,4 +31,14 @@
         android:orderInCategory="100"
         android:title="@string/menu_auth"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_testing"
+        android:title="Testing"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_qiscus"
+        android:title="Qiscus Chat"
+        app:showAsAction="never" />
 </menu>

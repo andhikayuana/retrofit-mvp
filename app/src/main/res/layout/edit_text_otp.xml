@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/etDigit1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/kotak_edit_text_otp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit1"
+        android:nextFocusRight="@+id/etDigit2" />
+
+    <EditText
+        android:id="@+id/etDigit2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/kotak_edit_text_otp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit1"
+        android:nextFocusRight="@+id/etDigit3" />
+
+    <EditText
+        android:id="@+id/etDigit3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/kotak_edit_text_otp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit2"
+        android:nextFocusRight="@+id/etDigit4" />
+
+    <EditText
+        android:id="@+id/etDigit4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/kotak_edit_text_otp"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:nextFocusLeft="@+id/etDigit3"
+        android:nextFocusRight="@+id/etDigit4" />
+
+</LinearLayout>

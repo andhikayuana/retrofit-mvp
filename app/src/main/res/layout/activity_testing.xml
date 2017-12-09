@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Hello Testing" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <yuana.kodemetro.com.cargallery.features.testing.edit_text_otp.EditTextOtp
+        android:id="@+id/etOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <requestFocus />
+    </yuana.kodemetro.com.cargallery.features.testing.edit_text_otp.EditTextOtp>
+
+    <Button
+        android:id="@+id/btnHaloOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HALO OTP" />
+
+    
+</LinearLayout>

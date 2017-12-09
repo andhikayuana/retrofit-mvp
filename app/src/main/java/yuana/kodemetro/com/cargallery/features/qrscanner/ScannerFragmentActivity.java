@@ -47,7 +47,10 @@ public class ScannerFragmentActivity extends AppCompatActivity {
         btnKiri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScannerFragmentActivity.this, "Halo btn Kiri", Toast.LENGTH_SHORT).show();
+                ScannerFragment fragmentById = (ScannerFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.frContainer);
+
+                fragmentById.clickFromFragment();
             }
         });
     }

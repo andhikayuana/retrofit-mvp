@@ -2,6 +2,7 @@ package yuana.kodemetro.com.cargallery.features.main;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -60,12 +61,10 @@ public class MainPresenterImpl implements MainPresenter {
 
                         String res = response.body().string();
 
-                        JsonObject jRes = Helper.getGsonInstance().fromJson(res, JsonObject.class);
+                        JsonObject jRes = new Gson().fromJson(res, JsonObject.class);
 
-                        Type listType = new TypeToken<List<Car>>() {
-                        }.getType();
-                        List<Car> carList = Helper
-                                .getGsonInstance()
+                        Type listType = new TypeToken<List<Car>>() {}.getType();
+                        List<Car> carList = new Gson()
                                 .fromJson(jRes.get("data").getAsJsonArray(), listType);
 
 
